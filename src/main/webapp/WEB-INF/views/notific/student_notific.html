@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notifications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .notifications-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .notification-list .notification-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            position: relative;
+        }
+
+        .notification-form {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+
+        .done-btn, .subscribe-btn, .unsubscribe-btn, .back-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .done-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .subscribe-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .unsubscribe-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .back-btn {
+            background-color: #6c757d;
+
+
+    </style>
+</head>
+<body>
+<div class="notifications-container">
+    <h2>NOTIFICATIONS</h2>
+    <div class="notification-list">
+        <div th:each="noti : ${notific}" class="notification-item">
+            <p>
+                <span th:text="${noti.getNotification()}"></span>
+            <form th:method="DELETE" th:action="@{/notifi/delete/{id}/{per_id}(id=${noti.getNotification_id()}, per_id=${noti.getPerson_id()})}" class="notification-form">
+                <input type="submit" value="DONE" class="done-btn">
+            </form>
+            </p>
+        </div>
+    </div>
+
+    <div th:if="${status} == 0" class="subscribe-form">
+        <form th:action="@{/notifi/sub/{name}(name=${name})}">
+            <input type="submit" value="Subscribe" class="subscribe-btn">
+        </form>
+    </div>
+
+    <div th:if="${status} == 1" class="unsubscribe-form">
+        <form th:action="@{/notifi/unsub/{name}(name=${name})}">
+            <input type="submit" value="Unsubscribe" class="unsubscribe-btn">
+        </form>
+    </div>
+
+    <form th:action="@{/stud/main/{name}(name=${name})}" class="back-form">
+        <input type="submit" value="Back" class="back-btn">
+    </form>
+</div>
+</body>
+</html>

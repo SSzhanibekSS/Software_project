@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .students-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .student-list .student-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .student-list .student-item p {
+            margin: 0;
+        }
+
+        .student-list .student-item a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .student-list .student-item a:hover {
+            text-decoration: underline;
+        }
+
+        .back-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+
+    </style>
+</head>
+<body>
+<div class="students-container">
+    <div class="student-list">
+        <div th:each="p : ${people}" class="student-item">
+            <p>
+                Student Name:
+                <a th:href="@{/admin/one/stud/{s_name}/{name}(s_name=${p.getName()}, name=${name})}" th:text="${p.getName()}"></a>
+            </p>
+        </div>
+    </div>
+
+    <form th:action="@{/admin/main/{name}(name=${name})}" class="back-form">
+        <input type="submit" value="Back" class="back-btn">
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .books-container {
+            width: 70%;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-list .book-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .book-list .book-item p {
+            margin: 0;
+        }
+
+        .choose-btn, .sort-btn, .back-btn {
+            padding: 5px 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .choose-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .sort-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .back-btn {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .sort-container, .back-form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+        }
+
+        select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .sort-btn:hover, .choose-btn:hover, .back-btn:hover {
+            opacity: 0.9;
+        }
+
+    </style>
+</head>
+<body>
+<div class="books-container">
+    <div class="book-list">
+        <div th:each="book : ${books}" class="book-item">
+            <p>Title:
+                <a th:href="@{/books/one/{id}/{name}(id=${book.getBook_id()}, name=${name})}" th:text="${book.getTitle()}"></a>
+            </p>
+        </div>
+    </div>
+
+    <div class="sort-container">
+        <form th:action="@{/books/sort/stud/{name}(name=${name})}" th:object="${sort}" class="sort-form">
+            <div class="form-group">
+                <label for="sort_o">Please choose sort order</label>
+                <select id="sort_o" th:field="*{order}">
+                    <option th:each="o : ${orders}" th:value="${o}" th:text="${o}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sort_t">Please choose sort type</label>
+                <select id="sort_t" th:field="*{type}">
+                    <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
+                </select>
+            </div>
+            <input type="submit" value="Sort" class="sort-btn">
+        </form>
+    </div>
+
+    <form th:action="@{/stud/main/{name}(name=${name})}" class="back-form">
+        <input type="submit" value="Back" class="back-btn">
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Styling for the header */
+        .block1 {
+            background-color: #2a2a2a;
+            padding: 15px;
+            color: white;
+        }
+
+        .block1 .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .block1 .header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        .block1 .header .element {
+            margin-bottom: 10px;
+        }
+
+        .block1 input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .block1 input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Styling for the content area */
+        .block2 {
+            padding: 20px;
+            background-color: white;
+            border-top: 3px solid #2a2a2a;
+        }
+
+        .block2 .text {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+            font-weight: 700;
+        }
+
+        /* Styling for each book block */
+        .opana {
+            background-color: #f8f8f8; /* Light grey background */
+            border: 1px solid #ddd; /* Light border */
+            padding: 15px;
+            margin-bottom: 10px; /* Spacing between each book block */
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        .opana span {
+            display: block; /* Each span on a new line */
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .opana a {
+            color: #0066cc; /* Color for the links */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .opana a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+<div class="block1">
+    <p class="title">STUDENT PAGE</p>
+    <div class="header">
+        <form class="element" th:action="@{/books/all/{name}(name=${person.getName()})}">
+            <input type="submit" value="Add book">
+        </form>
+        <br/>
+        <form class="element" th:action="@{/notifi/snot/{id}(id=${person.getId()})}">
+            <input type="submit" value="Notifications">
+        </form>
+        <br/>
+        <form class="element" th:action="@{/authen}">
+            <input type="submit" value="Logout">
+        </form>
+    </div>
+</div>
+<div class="block2">
+    <p class="text">Id: <a th:text="${person.getId()}"></a></p>
+    <p class="text">Name: <a th:text="${person.getName()}"></a></p>
+    <p class="text">Age: <a th:text="${person.getAge()}"></a></p>
+    <p class="text">Email: <a th:text="${person.getEmail()}"></a></p>
+</div>
+<div class="opana" th:each="book : ${books}">
+    <span>Title: <a th:text="${book.getBook_title()}"></a></span>
+    <span>Author: <a th:text="${book.getBook_author()}"></a></span>
+    <span>Year of Production: <a th:text="${book.getYear_of_production()}"></a></span>
+    <span>Count of Pages: <a th:text="${book.getCount_of_pages()}"></a></span>
+</div>
+</body>
+</html>

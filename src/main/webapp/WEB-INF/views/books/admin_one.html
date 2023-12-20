@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .book-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .book-container p {
+            margin: 10px 0;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        select, .choose-btn, .back-btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .choose-btn, .back-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .choose-btn:hover, .back-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .back-btn {
+            background-color: #6c757d;
+        }
+
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+
+        .availability-section, .no-availability-section {
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="book-container">
+    <p> Title: <span th:text="${book.get(1)}"></span> </p>
+    <p> Author: <span th:text="${book.get(2)}"></span> </p>
+    <p> Year of Production: <span th:text="${book.get(4)}"></span> </p>
+    <p> Count of Pages: <span th:text="${book.get(3)}"></span> </p>
+    <p> Book ID: <span th:text="${res.getBook_id()}"></span> </p>
+
+    <div th:if="${book.get(5) != 0}" class="availability-section">
+        <p> Available Books: <span th:text="${book.get(5)}"></span> </p>
+
+        <form th:method="POST" th:action="@{/books/res/admin/{id}/{name}(id=${book.get(0)}, name=${name})}" class="reserve-form" th:object="${res}">
+            <div class="error" th:if="${#fields.hasErrors('perosn_id')}" th:errors="*{perosn_id}"></div>
+            <label for="book">Please Choose Owner</label>
+            <select id="book" th:field="*{perosn_id}">
+                <option th:each="p : ${people}" th:value="${p.getId()}" th:text="${p.getName()}"></option>
+            </select>
+            <input type="submit" value="Choose" class="choose-btn">
+        </form>
+    </div>
+
+    <div th:if="${book.get(5) == 0}" class="no-availability-section">
+        <p>Right now, there are no available books.</p>
+    </div>
+
+    <form th:action="@{/admin/main/{name}(name=${name})}" class="back-form">
+        <input type="submit" value="Back" class="back-btn">
+    </form>
+</div>
+</body>
+</html>

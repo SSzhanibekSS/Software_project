@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .books-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .book-list .book-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .book-list .book-item p {
+            margin: 0;
+        }
+
+        .return-btn, .back-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .return-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .back-btn {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+
+    </style>
+</head>
+<body>
+<div class="books-container">
+    <div class="book-list">
+        <div th:each="b : ${books}" class="book-item">
+            <p> Book Title: <span th:text="${b.book_title}"></span> </p>
+            <form th:method="DELETE" th:action="@{/books/delete/{id}/{person_id}/{name}(id=${b.getBook_id()} , person_id=${person_id}, name=${name})}" class="return-form">
+                <input type="submit" value="Return" class="return-btn">
+            </form>
+        </div>
+    </div>
+    <form th:action="@{/admin/stud/{name}(name=${name})}" class="back-form">
+        <input type="submit" value="Back" class="back-btn">
+    </form>
+</div>
+</body>
+</html>

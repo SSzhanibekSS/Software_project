@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<style>
+    /* General page styling */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    /* Styling for the taskbar */
+    .block1 {
+        background-color: #2a2a2a;
+        padding: 15px;
+        color: white;
+    }
+
+    .block1 .title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .block1 .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .block1 .header .element {
+        margin-bottom: 10px;
+    }
+
+    .block1 input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .block1 input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    /* Styling for the content area */
+    .block2 {
+        padding: 20px;
+        background-color: white;
+        border-top: 3px solid #2a2a2a;
+    }
+
+    .block2 p {
+        font-size: 16px;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    .text{
+        font-weight: 700;
+    }
+    /* Styling for each book block with class 'opana' */
+    .opana {
+        background-color: #f8f8f8; /* Light grey background */
+        border: 1px solid #ddd; /* Light border */
+        padding: 15px;
+        margin-bottom: 10px; /* Spacing between each book block */
+        border-radius: 5px; /* Rounded corners */
+    }
+
+    .opana span {
+        display: block; /* Each span on a new line */
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    .opana a {
+        color: #0066cc; /* Color for the links */
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .opana a:hover {
+        text-decoration: underline;
+    }
+</style>
+<body>
+<div class="block1">
+    <p class="title">ADMIN PAGE</p>
+    <div class="header">
+        <form class="element" th:action="@{/admin/add/{name}(name=${person.getName()})}">
+            <input type="submit" value="Add Book">
+        </form>
+        <br/>
+        <form class="element" th:action="@{/admin/check/{name}(name=${name})}">
+            <input type="submit" value="Notify students about the delay">
+        </form>
+        <br/>
+        <form class="element" th:action="@{/authen}">
+            <input type="submit" value="Logout">
+        </form>
+        <br/>
+        <form class="element" th:action="@{/admin/books/{name}(name=${name})}">
+            <input type="submit" value="Reserve book for student">
+        </form>
+        <br/>
+        <form class="element" th:action="@{/admin/stud/{name}(name=${name})}">
+            <input type="submit" value="Return student book">
+        </form>
+    </div>
+
+</div>
+<div class="block2">
+<p class="text"> Admin Name: <a th:text="${person.getName()}"></a> </p>
+<p class="text"> Admin Age: <a th:text="${person.getAge()}"></a> </p>
+<p class="text"> Admin Status: <a th:text="${person.getStatus()}"></a> </p>
+<p class="text"> Admin Password: <a th:text="${person.getPassword()}"></a> </p>
+<p class="text"> Admin Email: <a th:text="${person.getEmail()}"></a> </p>
+</div>
+<div class="opana" th:each="b : ${books}">
+    <span> Title <a th:text="${b.getTitle()}"></a></span>
+    <span> Author <a th:text="${b.getBook_author()}"></a></span>
+    <span> Count_of_pages <a th:text="${b.getCount_of_pages()}"></a></span>
+    <br>
+</div>
+
+
+</body>
+</html>
